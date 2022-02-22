@@ -38,7 +38,7 @@ public class EventController {
     @GetMapping("/")
     public String viewHomePage(Model model) throws Exception {
         model.addAttribute("listEvents", eventService.fetchAll());
-        model.addAttribute("eventsSearchableData", generateEventsSearchableData());
+        model.addAttribute("eventsSearchableData", eventService.generateEventsSearchableData());
         return "index";
     }
 
@@ -52,7 +52,7 @@ public class EventController {
     public String showNewEventForm(Model model) throws Exception {
         Event event = new Event();
         model.addAttribute("event", event);
-        model.addAttribute("eventsSearchableData", generateEventsSearchableData());
+        model.addAttribute("eventsSearchableData", eventService.generateEventsSearchableData());
         return "newEvent";
     }
 
@@ -75,7 +75,7 @@ public class EventController {
      * @throws Exception
      */
     @PostMapping("/createEvent")
-    public ResponseEntity createEvent(@RequestBody Event event) throws Exception {
+    public ResponseEntity createEvent(@RequestBody Event event) {
         Event newEvent = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -137,7 +137,7 @@ public class EventController {
     public String edit(@PathVariable(value = "id") int id, Model model) throws Exception{
         Event event = eventService.fetch(id);
         model.addAttribute("event", event);
-        model.addAttribute("eventsSearchableData", generateEventsSearchableData());
+        model.addAttribute("eventsSearchableData", eventService.generateEventsSearchableData());
         return "editEvent";
     }
 
@@ -149,7 +149,6 @@ public class EventController {
      */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable(value = "id") int id) throws Exception {
-
         this.eventService.delete(id);
         return "redirect:/";
     }
@@ -167,27 +166,13 @@ public class EventController {
 
     /**
      * Search for an event that exists.
-     * @param str
+     * @param searchText
      * @return all events that were similar to the search term entered into the search field.
      * @throws Exception
      */
     @GetMapping("/search/{str}")
     @ResponseBody
-    public List<Event> searchEvents(@PathVariable(value = "str") String str) throws Exception {
-        List<Event> eventList =  new LinkedList<>();
-        for (Event event:eventService.fetchAll()) {
-            if(event.getName().contains(str) || event.getDescription().contains(str)){
-                eventList.add(event);
-            }
-        }
-        return eventList;
+    public List<Event> searchEvents(@PathVariable(value = "str") String searchText) throws Exception{
+        return eventService.searchEvents(searchText);
     }
-
-        public List<String> generateEventsSearchableData() throws Exception{
-            List<String> eventsSearchableData =  new LinkedList<>();
-            for (Event event:eventService.fetchAll()) {
-                eventsSearchableData.add(event.getName() + ", "+ event.getDescription());
-            }
-            return eventsSearchableData;
-        }
 }
