@@ -3,7 +3,6 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -16,10 +15,10 @@ import java.util.Date;
 @Table(name = "event")
 public @Data
 class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
 
     @Column(name = "name")
     private String name;

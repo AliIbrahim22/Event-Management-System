@@ -1,5 +1,7 @@
 package com.enterprise.eventmanagementsystem.dao;
+
 import com.enterprise.eventmanagementsystem.dto.Event;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +10,8 @@ import java.util.Map;
 
 @Repository("eventDAO")
 public class EventSQLDAO implements IEventDAO {
-    Map<Integer, Event> allEvents = new HashMap<>();
 
+    Map<Integer, Event> allEvents = new HashMap<>();
 
     @Autowired
     EventRepository eventRepository;
@@ -20,7 +22,7 @@ public class EventSQLDAO implements IEventDAO {
     }
 
     @Override
-    public Iterable<Event> fetchAll() throws Exception {
+    public Iterable<Event> fetchAll() {
         return eventRepository.findAll();
     }
 

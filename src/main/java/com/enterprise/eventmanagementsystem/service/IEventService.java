@@ -10,7 +10,6 @@ import java.util.List;
  */
 public interface IEventService {
 
-
     Iterable<Event> fetchAll() throws Exception;
 
     Event save(Event event) throws Exception;

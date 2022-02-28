@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This dao allows access and maps many of the various functions such as specifically
+ * fetching events by their id's.
+ * @author Ali Ibrahim, Benjamin Gomori, Kevin Zhu, and Son Bo
+ */
 public class EventDAO implements IEventDAO {
 
     Map<Integer, Event> allEvents = new HashMap<>();
