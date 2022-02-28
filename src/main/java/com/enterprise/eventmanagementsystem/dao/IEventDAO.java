@@ -6,6 +6,7 @@ import com.enterprise.eventmanagementsystem.dto.Event;
  * @author Ali Ibrahim, Benjamin Gomori, Kevin Zhu, and Son Bo
  */
 public interface IEventDAO {
+
     Event fetch(int eventId);
     Iterable<Event> fetchAll() throws Exception;
     Event save(Event event) throws Exception;

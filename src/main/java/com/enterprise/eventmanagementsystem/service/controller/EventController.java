@@ -1,4 +1,4 @@
-package com.enterprise.eventmanagementsystem.controller;
+package com.enterprise.eventmanagementsystem.service.controller;
 import com.enterprise.eventmanagementsystem.dto.Event;
 import com.enterprise.eventmanagementsystem.service.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import java.util.List;
  */
 @Controller
 public class EventController {
-
 
     @Autowired
     IEventService eventService;

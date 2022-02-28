@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class EventService implements IEventService {
 
-
     @Autowired
     IEventDAO eventDAO;
 

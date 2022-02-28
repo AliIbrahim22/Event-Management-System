@@ -8,8 +8,8 @@ import java.util.Map;
 
 @Repository("eventDAO")
 public class EventSQLDAO implements IEventDAO {
-    Map<Integer, Event> allEvents = new HashMap<>();
 
+    Map<Integer, Event> allEvents = new HashMap<>();
 
     @Autowired
     EventRepository eventRepository;
