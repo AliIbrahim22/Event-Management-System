@@ -1,5 +1,7 @@
 package com.enterprise.eventmanagementsystem.dao;
+
 import com.enterprise.eventmanagementsystem.dto.Event;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +22,7 @@ public class EventSQLDAO implements IEventDAO {
     }
 
     @Override
-    public Iterable<Event> fetchAll() throws Exception {
+    public Iterable<Event> fetchAll() {
         return eventRepository.findAll();
     }
 
