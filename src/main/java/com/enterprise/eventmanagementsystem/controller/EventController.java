@@ -1,5 +1,6 @@
 package com.enterprise.eventmanagementsystem.controller;
 import com.enterprise.eventmanagementsystem.dto.Event;
+import com.enterprise.eventmanagementsystem.exceptions.InvalidInputException;
 import com.enterprise.eventmanagementsystem.service.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -72,15 +73,13 @@ public class EventController {
      */
     @PostMapping("/createEvent")
     public ResponseEntity createEvent(@RequestBody Event event) throws Exception {
+        if(event.getName() == null){
+            throw new InvalidInputException("Id cannot be null");
+        }
         Event newEvent = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        try {
-            newEvent = eventService.save(event);
-        } catch (Exception e) {
-            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        newEvent = eventService.save(event);
         return new ResponseEntity(newEvent, headers, HttpStatus.OK);
     }
 
@@ -96,13 +95,8 @@ public class EventController {
         Event newEvent = null;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        try {
-            event.setId(id);
-            newEvent = eventService.save(event);
-        } catch (Exception e) {
-            return new ResponseEntity(headers, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        event.setId(id);
+        newEvent = eventService.save(event);
         return new ResponseEntity(newEvent, headers, HttpStatus.OK);
     }
 
@@ -114,12 +108,8 @@ public class EventController {
      */
     @DeleteMapping("/deleteEvent/{id}")
     public ResponseEntity deleteEvent(@PathVariable("id") int id) throws Exception {
-        try {
-            eventService.delete(id);
-            return new ResponseEntity(HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        eventService.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
@@ -167,9 +157,9 @@ public class EventController {
      * @return all events that were similar to the search term entered into the search field.
      * @throws Exception
      */
-    @GetMapping("/search/{str}")
+    @GetMapping("/search/{searchText}")
     @ResponseBody
-    public List<Event> searchEvents(@PathVariable(value = "str") String searchText) throws Exception{
+    public List<Event> searchEvents(@PathVariable(value = "searchText") String searchText) throws Exception{
         return eventService.searchEvents(searchText);
     }
 }
