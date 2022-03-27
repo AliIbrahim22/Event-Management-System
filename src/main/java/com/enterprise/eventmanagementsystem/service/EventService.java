@@ -5,6 +5,7 @@ import com.enterprise.eventmanagementsystem.dto.Event;
 import com.enterprise.eventmanagementsystem.dto.LabelValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -32,6 +33,7 @@ public class EventService implements IEventService {
     }
 
     @Override
+    @Cacheable("events")
     public Iterable<Event> fetchAll() throws Exception {
         return eventDAO.fetchAll();
     }
@@ -42,15 +44,17 @@ public class EventService implements IEventService {
     }
 
     @Override
+    @Cacheable(value = "event", key = "#id")
     public Event fetch(int id) {
         return eventDAO.fetch(id);
     }
 
     @Override
-    @CacheEvict(value = "delete", key = "#id")
+    @CacheEvict(value = "event", key = "#id")
     public void delete(int id) {
         this.eventRepository.deleteById(id);
     }
+
     @Override
     public List<LabelValue> generateEventsSearchableData() throws Exception{
         List<LabelValue> eventsSearchableData =  new LinkedList<>();
