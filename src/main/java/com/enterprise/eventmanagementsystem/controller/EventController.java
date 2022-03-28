@@ -72,7 +72,7 @@ public class EventController {
      */
     @PostMapping("/createEvent")
     public ResponseEntity createEvent(@RequestBody Event event) throws Exception {
-        Event newEvent = null;
+        Event newEvent;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try {
@@ -93,7 +93,7 @@ public class EventController {
      */
     @PostMapping("/saveEvent/{id}")
     public ResponseEntity saveEvent(@PathVariable("id") int id, @RequestBody Event event) throws Exception {
-        Event newEvent = null;
+        Event newEvent;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         try {
