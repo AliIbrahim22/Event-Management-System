@@ -1,6 +1,5 @@
 package com.enterprise.eventmanagementsystem.service;
 
-import com.enterprise.eventmanagementsystem.dao.EventRepository;
 import com.enterprise.eventmanagementsystem.dao.IEventDAO;
 import com.enterprise.eventmanagementsystem.dto.Event;
 import com.enterprise.eventmanagementsystem.dto.LabelValue;
@@ -46,7 +45,7 @@ public class EventService implements IEventService {
 
     @Override
     @CacheEvict(value = "delete", key = "#id")
-    public void delete(int id)throws Exception {
+    public void delete(int id) throws Exception {
         this.eventDAO.deleteById(id);
     }
 
