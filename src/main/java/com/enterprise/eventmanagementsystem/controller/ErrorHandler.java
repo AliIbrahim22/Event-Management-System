@@ -16,7 +16,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler(value = {InvalidInputException.class})
-    public ResponseEntity<Object> handleInvalidInputException(InvalidInputException exception){
+    public ResponseEntity<Object> handleInvalidInputException(InvalidInputException exception) {
         logger.error("Invalid Input Exception: ", exception.getMessage());
         return new ResponseEntity(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
@@ -26,7 +26,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         logger.error("Exception Occurred: ", ex.getMessage());
         return new ResponseEntity(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
 
 }
